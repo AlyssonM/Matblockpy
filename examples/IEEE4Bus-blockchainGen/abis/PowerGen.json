@@ -1,0 +1,1210 @@
+{
+  "contractName": "PowerGen",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "ActivePower",
+          "type": "int256"
+        },
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "ReactivePower",
+          "type": "int256"
+        }
+      ],
+      "name": "PowerChange",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "int256",
+          "name": "ActivePwr",
+          "type": "int256"
+        },
+        {
+          "internalType": "int256",
+          "name": "ReactivePwr",
+          "type": "int256"
+        }
+      ],
+      "name": "setGenPwr",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getGen",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "int256",
+              "name": "ActivePower",
+              "type": "int256"
+            },
+            {
+              "internalType": "int256",
+              "name": "ReactivePower",
+              "type": "int256"
+            }
+          ],
+          "internalType": "struct PowerGen.Generator",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"ActivePower\",\"type\":\"int256\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"ReactivePower\",\"type\":\"int256\"}],\"name\":\"PowerChange\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"getGen\",\"outputs\":[{\"components\":[{\"internalType\":\"int256\",\"name\":\"ActivePower\",\"type\":\"int256\"},{\"internalType\":\"int256\",\"name\":\"ReactivePower\",\"type\":\"int256\"}],\"internalType\":\"struct PowerGen.Generator\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"ActivePwr\",\"type\":\"int256\"},{\"internalType\":\"int256\",\"name\":\"ReactivePwr\",\"type\":\"int256\"}],\"name\":\"setGenPwr\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PowerGen.sol\":\"PowerGen\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PowerGen.sol\":{\"keccak256\":\"0xb7ec62f75e9235ade5725ef5e762ef454e90a03825615fb966d38259b63a4a2a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://639e48a1776789165e2074d6ee7f8fe0da5fc5115c99dcc091919ae4e8163c48\",\"dweb:/ipfs/QmUzxuZQNkhbjU1oz1F5eHVxRViBTpTYtqpQayPpfVaBR1\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061012d806100206000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c8063a5ae65ba146037578063a79f3ce614607e575b600080fd5b604080518082018252600080825260209182018190528251808401909352548252600154908201526040805182518152602092830151928101929092520160405180910390f35b608d608936600460d6565b608f565b005b6000829055600181905560408051838152602081018390527f787c69bba77ac57019bf938adb86e4381af6fc9dd8d4128d4d81637963d33276910160405180910390a15050565b6000806040838503121560e857600080fd5b5050803592602090910135915056fea2646970667358221220cff5ae90d672325b5efd1d71a24fa86f649f168c73a3f1bf0d39e52954b6261e64736f6c634300080d0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060325760003560e01c8063a5ae65ba146037578063a79f3ce614607e575b600080fd5b604080518082018252600080825260209182018190528251808401909352548252600154908201526040805182518152602092830151928101929092520160405180910390f35b608d608936600460d6565b608f565b005b6000829055600181905560408051838152602081018390527f787c69bba77ac57019bf938adb86e4381af6fc9dd8d4128d4d81637963d33276910160405180910390a15050565b6000806040838503121560e857600080fd5b5050803592602090910135915056fea2646970667358221220cff5ae90d672325b5efd1d71a24fa86f649f168c73a3f1bf0d39e52954b6261e64736f6c634300080d0033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [
+    {
+      "ast": {
+        "nodeType": "YulBlock",
+        "src": "0:813:2",
+        "statements": [
+          {
+            "nodeType": "YulBlock",
+            "src": "6:3:2",
+            "statements": []
+          },
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "165:146:2",
+              "statements": [
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "175:26:2",
+                  "value": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "187:9:2"
+                      },
+                      {
+                        "kind": "number",
+                        "nodeType": "YulLiteral",
+                        "src": "198:2:2",
+                        "type": "",
+                        "value": "64"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "add",
+                      "nodeType": "YulIdentifier",
+                      "src": "183:3:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "183:18:2"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "tail",
+                      "nodeType": "YulIdentifier",
+                      "src": "175:4:2"
+                    }
+                  ]
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "217:9:2"
+                      },
+                      {
+                        "arguments": [
+                          {
+                            "name": "value0",
+                            "nodeType": "YulIdentifier",
+                            "src": "234:6:2"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "mload",
+                          "nodeType": "YulIdentifier",
+                          "src": "228:5:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "228:13:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "mstore",
+                      "nodeType": "YulIdentifier",
+                      "src": "210:6:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "210:32:2"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "210:32:2"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "name": "headStart",
+                            "nodeType": "YulIdentifier",
+                            "src": "262:9:2"
+                          },
+                          {
+                            "kind": "number",
+                            "nodeType": "YulLiteral",
+                            "src": "273:4:2",
+                            "type": "",
+                            "value": "0x20"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "add",
+                          "nodeType": "YulIdentifier",
+                          "src": "258:3:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "258:20:2"
+                      },
+                      {
+                        "arguments": [
+                          {
+                            "arguments": [
+                              {
+                                "name": "value0",
+                                "nodeType": "YulIdentifier",
+                                "src": "290:6:2"
+                              },
+                              {
+                                "kind": "number",
+                                "nodeType": "YulLiteral",
+                                "src": "298:4:2",
+                                "type": "",
+                                "value": "0x20"
+                              }
+                            ],
+                            "functionName": {
+                              "name": "add",
+                              "nodeType": "YulIdentifier",
+                              "src": "286:3:2"
+                            },
+                            "nodeType": "YulFunctionCall",
+                            "src": "286:17:2"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "mload",
+                          "nodeType": "YulIdentifier",
+                          "src": "280:5:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "280:24:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "mstore",
+                      "nodeType": "YulIdentifier",
+                      "src": "251:6:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "251:54:2"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "251:54:2"
+                }
+              ]
+            },
+            "name": "abi_encode_tuple_t_struct$_Generator_$66_memory_ptr__to_t_struct$_Generator_$66_memory_ptr__fromStack_reversed",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "headStart",
+                "nodeType": "YulTypedName",
+                "src": "134:9:2",
+                "type": ""
+              },
+              {
+                "name": "value0",
+                "nodeType": "YulTypedName",
+                "src": "145:6:2",
+                "type": ""
+              }
+            ],
+            "returnVariables": [
+              {
+                "name": "tail",
+                "nodeType": "YulTypedName",
+                "src": "156:4:2",
+                "type": ""
+              }
+            ],
+            "src": "14:297:2"
+          },
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "401:161:2",
+              "statements": [
+                {
+                  "body": {
+                    "nodeType": "YulBlock",
+                    "src": "447:16:2",
+                    "statements": [
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "kind": "number",
+                              "nodeType": "YulLiteral",
+                              "src": "456:1:2",
+                              "type": "",
+                              "value": "0"
+                            },
+                            {
+                              "kind": "number",
+                              "nodeType": "YulLiteral",
+                              "src": "459:1:2",
+                              "type": "",
+                              "value": "0"
+                            }
+                          ],
+                          "functionName": {
+                            "name": "revert",
+                            "nodeType": "YulIdentifier",
+                            "src": "449:6:2"
+                          },
+                          "nodeType": "YulFunctionCall",
+                          "src": "449:12:2"
+                        },
+                        "nodeType": "YulExpressionStatement",
+                        "src": "449:12:2"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "name": "dataEnd",
+                            "nodeType": "YulIdentifier",
+                            "src": "422:7:2"
+                          },
+                          {
+                            "name": "headStart",
+                            "nodeType": "YulIdentifier",
+                            "src": "431:9:2"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "sub",
+                          "nodeType": "YulIdentifier",
+                          "src": "418:3:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "418:23:2"
+                      },
+                      {
+                        "kind": "number",
+                        "nodeType": "YulLiteral",
+                        "src": "443:2:2",
+                        "type": "",
+                        "value": "64"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "slt",
+                      "nodeType": "YulIdentifier",
+                      "src": "414:3:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "414:32:2"
+                  },
+                  "nodeType": "YulIf",
+                  "src": "411:52:2"
+                },
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "472:33:2",
+                  "value": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "495:9:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "calldataload",
+                      "nodeType": "YulIdentifier",
+                      "src": "482:12:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "482:23:2"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "value0",
+                      "nodeType": "YulIdentifier",
+                      "src": "472:6:2"
+                    }
+                  ]
+                },
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "514:42:2",
+                  "value": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "name": "headStart",
+                            "nodeType": "YulIdentifier",
+                            "src": "541:9:2"
+                          },
+                          {
+                            "kind": "number",
+                            "nodeType": "YulLiteral",
+                            "src": "552:2:2",
+                            "type": "",
+                            "value": "32"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "add",
+                          "nodeType": "YulIdentifier",
+                          "src": "537:3:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "537:18:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "calldataload",
+                      "nodeType": "YulIdentifier",
+                      "src": "524:12:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "524:32:2"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "value1",
+                      "nodeType": "YulIdentifier",
+                      "src": "514:6:2"
+                    }
+                  ]
+                }
+              ]
+            },
+            "name": "abi_decode_tuple_t_int256t_int256",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "headStart",
+                "nodeType": "YulTypedName",
+                "src": "359:9:2",
+                "type": ""
+              },
+              {
+                "name": "dataEnd",
+                "nodeType": "YulTypedName",
+                "src": "370:7:2",
+                "type": ""
+              }
+            ],
+            "returnVariables": [
+              {
+                "name": "value0",
+                "nodeType": "YulTypedName",
+                "src": "382:6:2",
+                "type": ""
+              },
+              {
+                "name": "value1",
+                "nodeType": "YulTypedName",
+                "src": "390:6:2",
+                "type": ""
+              }
+            ],
+            "src": "316:246:2"
+          },
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "692:119:2",
+              "statements": [
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "702:26:2",
+                  "value": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "714:9:2"
+                      },
+                      {
+                        "kind": "number",
+                        "nodeType": "YulLiteral",
+                        "src": "725:2:2",
+                        "type": "",
+                        "value": "64"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "add",
+                      "nodeType": "YulIdentifier",
+                      "src": "710:3:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "710:18:2"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "tail",
+                      "nodeType": "YulIdentifier",
+                      "src": "702:4:2"
+                    }
+                  ]
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "744:9:2"
+                      },
+                      {
+                        "name": "value0",
+                        "nodeType": "YulIdentifier",
+                        "src": "755:6:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "mstore",
+                      "nodeType": "YulIdentifier",
+                      "src": "737:6:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "737:25:2"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "737:25:2"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "name": "headStart",
+                            "nodeType": "YulIdentifier",
+                            "src": "782:9:2"
+                          },
+                          {
+                            "kind": "number",
+                            "nodeType": "YulLiteral",
+                            "src": "793:2:2",
+                            "type": "",
+                            "value": "32"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "add",
+                          "nodeType": "YulIdentifier",
+                          "src": "778:3:2"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "778:18:2"
+                      },
+                      {
+                        "name": "value1",
+                        "nodeType": "YulIdentifier",
+                        "src": "798:6:2"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "mstore",
+                      "nodeType": "YulIdentifier",
+                      "src": "771:6:2"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "771:34:2"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "771:34:2"
+                }
+              ]
+            },
+            "name": "abi_encode_tuple_t_int256_t_int256__to_t_int256_t_int256__fromStack_reversed",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "headStart",
+                "nodeType": "YulTypedName",
+                "src": "653:9:2",
+                "type": ""
+              },
+              {
+                "name": "value1",
+                "nodeType": "YulTypedName",
+                "src": "664:6:2",
+                "type": ""
+              },
+              {
+                "name": "value0",
+                "nodeType": "YulTypedName",
+                "src": "672:6:2",
+                "type": ""
+              }
+            ],
+            "returnVariables": [
+              {
+                "name": "tail",
+                "nodeType": "YulTypedName",
+                "src": "683:4:2",
+                "type": ""
+              }
+            ],
+            "src": "567:244:2"
+          }
+        ]
+      },
+      "contents": "{\n    { }\n    function abi_encode_tuple_t_struct$_Generator_$66_memory_ptr__to_t_struct$_Generator_$66_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        tail := add(headStart, 64)\n        mstore(headStart, mload(value0))\n        mstore(add(headStart, 0x20), mload(add(value0, 0x20)))\n    }\n    function abi_decode_tuple_t_int256t_int256(headStart, dataEnd) -> value0, value1\n    {\n        if slt(sub(dataEnd, headStart), 64) { revert(0, 0) }\n        value0 := calldataload(headStart)\n        value1 := calldataload(add(headStart, 32))\n    }\n    function abi_encode_tuple_t_int256_t_int256__to_t_int256_t_int256__fromStack_reversed(headStart, value1, value0) -> tail\n    {\n        tail := add(headStart, 64)\n        mstore(headStart, value0)\n        mstore(add(headStart, 32), value1)\n    }\n}",
+      "id": 2,
+      "language": "Yul",
+      "name": "#utility.yul"
+    }
+  ],
+  "sourceMap": "63:498:1:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "63:498:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;471:85;-1:-1:-1;;;;;;;;;;;;;;;;;;;537:11:1;;;;;;;;;;;;;;;;;471:85;;;228:13:2;;210:32;;298:4;286:17;;;280:24;258:20;;;251:54;;;;183:18;471:85:1;;;;;;;264:198;;;;;;:::i;:::-;;:::i;:::-;;;332:4;:28;;;371:18;:32;;;419:35;;;737:25:2;;;793:2;778:18;;771:34;;;419:35:1;;710:18:2;419:35:1;;;;;;;264:198;;:::o;316:246:2:-;382:6;390;443:2;431:9;422:7;418:23;414:32;411:52;;;459:1;456;449:12;411:52;-1:-1:-1;;482:23:2;;;552:2;537:18;;;524:32;;-1:-1:-1;316:246:2:o",
+  "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0; \r\n\r\ncontract PowerGen{\r\n    event PowerChange(int ActivePower, int ReactivePower);\r\n    \r\n    struct Generator{ \r\n        int ActivePower;\r\n        int ReactivePower;\r\n    }\r\n\r\n    Generator Gen1; \r\n\r\n    function setGenPwr(int ActivePwr, int ReactivePwr) public{\r\n        Gen1.ActivePower = ActivePwr;\r\n        Gen1.ReactivePower = ReactivePwr;\r\n        emit PowerChange(ActivePwr, ReactivePwr);\r\n    }\r\n \r\n    function getGen() public view returns(Generator memory){\r\n        return Gen1;\r\n    }\r\n\r\n}\r\n",
+  "sourcePath": "D:\\Github Projects\\Matblockpy\\examples\\IEEE4Bus-blockchainGen\\contracts\\PowerGen.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/PowerGen.sol",
+    "exportedSymbols": {
+      "PowerGen": [
+        104
+      ]
+    },
+    "id": 105,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 55,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "35:23:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "PowerGen",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 104,
+        "linearizedBaseContracts": [
+          104
+        ],
+        "name": "PowerGen",
+        "nameLocation": "72:8:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "eventSelector": "787c69bba77ac57019bf938adb86e4381af6fc9dd8d4128d4d81637963d33276",
+            "id": 61,
+            "name": "PowerChange",
+            "nameLocation": "93:11:1",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 60,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 57,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "ActivePower",
+                  "nameLocation": "109:11:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 61,
+                  "src": "105:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 56,
+                    "name": "int",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "105:3:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 59,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "ReactivePower",
+                  "nameLocation": "126:13:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 61,
+                  "src": "122:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 58,
+                    "name": "int",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "122:3:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "104:36:1"
+            },
+            "src": "87:54:1"
+          },
+          {
+            "canonicalName": "PowerGen.Generator",
+            "id": 66,
+            "members": [
+              {
+                "constant": false,
+                "id": 63,
+                "mutability": "mutable",
+                "name": "ActivePower",
+                "nameLocation": "185:11:1",
+                "nodeType": "VariableDeclaration",
+                "scope": 66,
+                "src": "181:15:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_int256",
+                  "typeString": "int256"
+                },
+                "typeName": {
+                  "id": 62,
+                  "name": "int",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "181:3:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 65,
+                "mutability": "mutable",
+                "name": "ReactivePower",
+                "nameLocation": "211:13:1",
+                "nodeType": "VariableDeclaration",
+                "scope": 66,
+                "src": "207:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_int256",
+                  "typeString": "int256"
+                },
+                "typeName": {
+                  "id": 64,
+                  "name": "int",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "207:3:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Generator",
+            "nameLocation": "160:9:1",
+            "nodeType": "StructDefinition",
+            "scope": 104,
+            "src": "153:79:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 69,
+            "mutability": "mutable",
+            "name": "Gen1",
+            "nameLocation": "250:4:1",
+            "nodeType": "VariableDeclaration",
+            "scope": 104,
+            "src": "240:14:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_Generator_$66_storage",
+              "typeString": "struct PowerGen.Generator"
+            },
+            "typeName": {
+              "id": 68,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 67,
+                "name": "Generator",
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 66,
+                "src": "240:9:1"
+              },
+              "referencedDeclaration": 66,
+              "src": "240:9:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Generator_$66_storage_ptr",
+                "typeString": "struct PowerGen.Generator"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 93,
+              "nodeType": "Block",
+              "src": "321:141:1",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 80,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 76,
+                        "name": "Gen1",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 69,
+                        "src": "332:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Generator_$66_storage",
+                          "typeString": "struct PowerGen.Generator storage ref"
+                        }
+                      },
+                      "id": 78,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "ActivePower",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 63,
+                      "src": "332:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 79,
+                      "name": "ActivePwr",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 71,
+                      "src": "351:9:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "src": "332:28:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "id": 81,
+                  "nodeType": "ExpressionStatement",
+                  "src": "332:28:1"
+                },
+                {
+                  "expression": {
+                    "id": 86,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 82,
+                        "name": "Gen1",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 69,
+                        "src": "371:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Generator_$66_storage",
+                          "typeString": "struct PowerGen.Generator storage ref"
+                        }
+                      },
+                      "id": 84,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "ReactivePower",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 65,
+                      "src": "371:18:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 85,
+                      "name": "ReactivePwr",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 73,
+                      "src": "392:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_int256",
+                        "typeString": "int256"
+                      }
+                    },
+                    "src": "371:32:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "id": 87,
+                  "nodeType": "ExpressionStatement",
+                  "src": "371:32:1"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 89,
+                        "name": "ActivePwr",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 71,
+                        "src": "431:9:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_int256",
+                          "typeString": "int256"
+                        }
+                      },
+                      {
+                        "id": 90,
+                        "name": "ReactivePwr",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 73,
+                        "src": "442:11:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_int256",
+                          "typeString": "int256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_int256",
+                          "typeString": "int256"
+                        },
+                        {
+                          "typeIdentifier": "t_int256",
+                          "typeString": "int256"
+                        }
+                      ],
+                      "id": 88,
+                      "name": "PowerChange",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 61,
+                      "src": "419:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_int256_$_t_int256_$returns$__$",
+                        "typeString": "function (int256,int256)"
+                      }
+                    },
+                    "id": 91,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "419:35:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 92,
+                  "nodeType": "EmitStatement",
+                  "src": "414:40:1"
+                }
+              ]
+            },
+            "functionSelector": "a79f3ce6",
+            "id": 94,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setGenPwr",
+            "nameLocation": "273:9:1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 74,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 71,
+                  "mutability": "mutable",
+                  "name": "ActivePwr",
+                  "nameLocation": "287:9:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 94,
+                  "src": "283:13:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 70,
+                    "name": "int",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "283:3:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 73,
+                  "mutability": "mutable",
+                  "name": "ReactivePwr",
+                  "nameLocation": "302:11:1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 94,
+                  "src": "298:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int256",
+                    "typeString": "int256"
+                  },
+                  "typeName": {
+                    "id": 72,
+                    "name": "int",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "298:3:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_int256",
+                      "typeString": "int256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "282:32:1"
+            },
+            "returnParameters": {
+              "id": 75,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "321:0:1"
+            },
+            "scope": 104,
+            "src": "264:198:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 102,
+              "nodeType": "Block",
+              "src": "526:30:1",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 100,
+                    "name": "Gen1",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 69,
+                    "src": "544:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Generator_$66_storage",
+                      "typeString": "struct PowerGen.Generator storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 99,
+                  "id": 101,
+                  "nodeType": "Return",
+                  "src": "537:11:1"
+                }
+              ]
+            },
+            "functionSelector": "a5ae65ba",
+            "id": 103,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getGen",
+            "nameLocation": "480:6:1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 95,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "486:2:1"
+            },
+            "returnParameters": {
+              "id": 99,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 98,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 103,
+                  "src": "509:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Generator_$66_memory_ptr",
+                    "typeString": "struct PowerGen.Generator"
+                  },
+                  "typeName": {
+                    "id": 97,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 96,
+                      "name": "Generator",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 66,
+                      "src": "509:9:1"
+                    },
+                    "referencedDeclaration": 66,
+                    "src": "509:9:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Generator_$66_storage_ptr",
+                      "typeString": "struct PowerGen.Generator"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "508:18:1"
+            },
+            "scope": 104,
+            "src": "471:85:1",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 105,
+        "src": "63:498:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "35:528:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
+  },
+  "networks": {
+    "1515": {
+      "events": {},
+      "links": {},
+      "address": "0x75aF786D50BF855b63796f7E20AF83cF058ff7a0",
+      "transactionHash": "0x7a72447c3c2e64ee914281a1e9b22e4282be022f9d83a30023b5ecc80942a828"
+    },
+    "1711574621555": {
+      "events": {},
+      "links": {},
+      "address": "0x562A256FCf68798C7c0eB743682DeB6b27c6eDA8",
+      "transactionHash": "0xc0399941bc15e27a2664dde13d46f9eeefab209df4424a8646d71686f75b6f8e"
+    }
+  },
+  "schemaVersion": "3.4.7",
+  "updatedAt": "2024-03-27T21:38:02.471Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
