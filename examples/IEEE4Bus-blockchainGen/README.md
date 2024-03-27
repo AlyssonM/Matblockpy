@@ -80,3 +80,5 @@ Finally, the results are plotted:
     xlabel('Time (h)')
     ylabel('Power')
 ```
+
+![Texto Alternativo](./example1_plot.png)

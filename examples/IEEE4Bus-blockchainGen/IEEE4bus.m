@@ -24,7 +24,7 @@ function mpc = IEEE4bus
     
     %% branch data
     %	fbus	tbus	r	x	b	rateA	rateB	rateC	ratio	angle	status	angmin	angmax
-    	 = [
+    mpc.branch = [
         1	2	0.001008	0.0504	0.1025	250	250	250	0	0	1	-360	360;
         1	3	0.000744	0.0372	0.0775	250	250	250	0	0	1	-360	360;
         2	4	0.000744	0.0372	0.0775	250	250	250	0	0	1	-360	360;
