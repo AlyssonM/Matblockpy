@@ -37,3 +37,42 @@ To call Python functions from MATLAB, use the following syntax:
     r = py.yourmodule.func(listOfParams)
 ``` 
  _'r'_ represents a variable to receive returns and can be any variable name; it will be loaded into the MATLAB workspace. _'listofParams'_ can be null with an empty call _func()_, or the respective sequence, _func(param1, param2, ..., paramN)_.
+
+ ## Installing matpower 7.1 (latest Release)
+ MATPOWER is a package of free, open-source Matlab-language M-files for solving steady-state power system simulation and optimization problems, such as:
+
+* power flow (PF),
+* continuation power flow (CPF),
+* extensible optimal power flow (OPF),
+* unit commitment (UC) and
+* stochastic, secure multi-interval OPF/UC.
+
+To install it, get a copy by downloading and extracting the downloaded [ZIP file](https://matpower.org/about/get-started/). Or use git clone. <MATPOWER> denote the path to the directory:
+
+```shell
+    cd <MATPOWER>
+    git clone https://github.com/MATPOWER/matpower.git
+``` 
+1. Open MATLAB or Octave and change to the <MATPOWER> directory.
+2. Run the installer and follow the directions to add the required directories to your MATLAB or Octave path, by typing:
+
+```shell
+    install_matpower
+``` 
+
+If you chose not to have the installer run the test suite for you in step 2, you can run it now to verify that MATPOWER is installed and functioning properly, by typing:
+
+```shell
+    test_matpower
+``` 
+
+## Running MATPOWER 
+To load the 30-bus system data from case30.m, increase its real power demand at bus 2 to 30 MW, then run an AC optimal power flow with default options, type:
+
+```shell
+    define_constants;
+    mpc = loadcase('case30');
+    mpc.bus(2, PD) = 30;
+    runopf(mpc);
+``` 
+The MATPOWER documentation is available on the MATPOWER [website](https://matpower.org/doc/).
