@@ -1,5 +1,44 @@
 # IEEE 4 Bus with Generator Power Set by Smart Contract
 
+## Installing Local Blockchain Dependencies
+
+To deploy and test smart contract-based applications, we need an EVM (Ethereum Virtual Machine)-based simulator such as Ganache or Hardhat. Let's use Ganache due to its simplicity.
+1. Install NVM (Node Version Manager) 
+For Windows [Download and install](https://github.com/coreybutler/nvm-windows/releases) NVM setup executable.
+For Linux, execute the code:
+
+```shell
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+    source ~/.bashrc
+```
+2. Install Node JS and NPM
+To verify the installation of NVM and install Node.js, you can execute the following commands in your terminal:
+
+```shell
+    nvm –version
+    nvm ls
+    nvm ls-remote
+    nvm install v18.16.0
+```
+3. Install Ganache 
+
+```shell
+    npm install ganache --global
+```
+The <truffle-config.js> file configures the networks and Solidity compiler version for building and deploying smart contracts.
+
+## Run Ganache and Deploy Smart Contracts
+To run Ganache, execute the following commands in a separate terminal, specifying the port as 7545, gas limit as 0.5 Gwei, and network ID as 1515:
+
+```shell
+    ganache -p 7545 -l 500000000 -i 1515
+```
+To deploy the example smart contract (PowerGen.sol):
+```shell
+    truffle migrate --reset --network development
+```
+And that's it! Your smart contract is deployed and can be called.
+
 ## Interacting with smart contract from .m script
 To interact with the smart contract deployed on the local Ganache blockchain, a Python-based interface is created in <contract_interface.py>. The interface is imported to .m script with lines:
 
