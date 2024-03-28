@@ -21,7 +21,7 @@ for h=1:24
     if(h > 10)
         py.contract_interface.setGeneratorPower(int32(25+5*(h-10)),int32(-50));
     end
-    Power = py.contract_interface.getGenerator();
+    Power = py.contract_interface.PowerChangeListen();
     GenPower = double(py.array.array('d', py.numpy.nditer(Power)));
 	mpc.gen(1, PG) = GenPower(1);
     mpc.gen(1, QG) = GenPower(2);

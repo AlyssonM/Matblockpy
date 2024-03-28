@@ -19,7 +19,9 @@ def getGenerator():
     
 def PowerChangeListen():
     logs = gen.events.PowerChange().get_logs(fromBlock=w3.eth.block_number)
-    for log in logs:
-        print('Active Power = {} \nReactive Power = {}'.format(log.args['ActivePower'], log.args['ReactivePower']))
+    # for log in logs:
+    #     print('Active Power = {} \nReactive Power = {}'.format(log.args['ActivePower'], log.args['ReactivePower']))
+    data = np.array([logs[-1].args['ActivePower'], logs[-1].args['ReactivePower']])
+    return data
         
     
