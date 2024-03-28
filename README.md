@@ -1,5 +1,7 @@
 # MATLAB-Blockchain integration with Python (matpower case study)
 
+This project integrates MATLAB with blockchain technology using Python, with a focus on power system simulations through MATPOWER as a case study. The project demonstrates how MATLAB can interact with Python to leverage blockchain functionalities, enhancing the capabilities of power system analysis and optimization.
+
 ## Requirements
 
 The Python versions used must be compatible with your [MATLAB Product](https://www.mathworks.com/support/requirements/python-compatibility.html).

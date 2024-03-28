@@ -29,7 +29,7 @@ To verify the installation of NVM and install Node.js, you can execute the follo
 4. Install Truffle Suite
 
 ```shell
-npm install -g truffle
+    npm install -g truffle
 ```
 The <truffle-config.js> file configures the networks and Solidity compiler version for building and deploying smart contracts.
 
