@@ -1,7 +1,7 @@
 clear classes
 close all
-%mod = py.importlib.import_module('contract_interface');
-%py.importlib.reload(mod);
+mod = py.importlib.import_module('ipfs');
+py.importlib.reload(mod);
 load('IfesSolcastPT15M.mat');
 load('UCloads');
 
@@ -74,7 +74,7 @@ PolT = polyfit(VT,PRT,GP);
 size_ = size(filteredData.PeriodStart);
 dayOfYear = zeros(1,size_(1));
 
-
+%% Solar Irradiance calculations (POA) and PV Power Outputs
 for i=1:2
     dayOfYear = day(filteredData.PeriodStart(1), 'dayofyear');    
     POA(i,:) = calculate_POA(filteredData.Ghi, tilt(i), azimuth(i), dayOfYear, -19.39);
@@ -85,8 +85,10 @@ for i=1:2
     PVGen(i,:) = PVGeneration(Npv(i),filteredData.AirTemp,POA(i,:)/1000, Vmpp(i),Impp(i), Voc(i),Isc(i),Kv(i),Ki(i));
 end
 
+%% Wind Power Output
 WindGen = WindGeneration(Nt,filteredData.WindSpeed10m,PolT,GP);
 
+%% Load case and run OPF
 mpc = loadcase('./case9');
 define_constants;
 
@@ -98,7 +100,7 @@ for h=1:size(PVGen(1,:)')
     mpc.bus(5, PD) = Load1(h);
     mpc.bus(7, PD) = Load2(h);
     mpc.bus(9, PD) = Load3(h);
-    % Executar o fluxo de potência
+
     results{h} = runpf(mpc, mpopt);
 	gen_power_kW(:,h) = results{h}.gen(:,PG);
 	gen_power_kVAr(:,h) = results{h}.gen(:,QG);
@@ -106,6 +108,7 @@ for h=1:size(PVGen(1,:)')
     Grid(:,h) = results{h}.branch(:, PF);
 end
 
+%% Plot Results
 figure(1)
 plot(filteredData.PeriodStart,gen_power_kW')
 legend('Main Grid', 'PV1 - Bus 2', 'PV2 - Bus 3', 'WG - Bus 6')
@@ -118,6 +121,11 @@ plot(filteredData.PeriodStart,buses_voltage')
 title('9 Bus Voltages ')
 ylabel('Voltage (pu)')
 xlabel('Time (h)')
+
+data = table(filteredData.PeriodStart, gen_power_kW(1,:)',gen_power_kW(2,:)',gen_power_kW(3,:)',Load1',Load2',Load3', 'VariableNames', {'DataHora', 'Gen-01', 'Gen-02', 'Gen-03', 'Load-01','Load-02','Load-03'});
+save('PowerData.mat','data');
+
+DLEMcontract(data(:,{'Gen-01','Gen-02','Gen-03'}), filteredLoad.UC1, filteredLoad.UC2, filteredLoad.UC9)
 
 function POA = calculate_POA(GHI, tilt, azimuth, dayOfYear, latitude)
     % Convert degrees to radians
