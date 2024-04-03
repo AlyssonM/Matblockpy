@@ -102,7 +102,7 @@ def DLEMbid(Addr, Pwr, Price):
             PWRp[i] = Web3.to_wei(Pwr[i], "ether")
         Price_p[i] = Web3.to_wei(Price[i], "ether")
     mat_dict = {'Price': Price, 'Quantity': Pwr}
-    file_name = Addr + '.mat'
+    file_name = './.biddata/' + Addr + '.mat'
     savemat(file_name, mat_dict)
     ipfscid = bidIPFS(Addr)  
     print(PWRp)
@@ -112,7 +112,7 @@ def bidIPFS(client):
     # Endereço do nó IPFS
     url = 'http://127.0.0.1:5001/api/v0/add'
     # Caminho para o arquivo que você quer adicionar ao IPFS
-    file_path = './' + client + '.mat'
+    file_path = './.biddata/' + client + '.mat'
     # Usar a função para criptografar seu arquivo
     encrypted_file_path = encrypt_file(file_path)
     # Fazendo a requisição para a API do IPFS
@@ -144,10 +144,10 @@ def  getIPFSdata(client, ipfscid, key):
         print('Erro ao baixar o arquivo.')
     
     # Caminho do arquivo criptografado
-    encrypted_file_path = './' + client + '.enc'
+    encrypted_file_path = client + '.enc'
 
     # Caminho onde o arquivo descriptografado será salvo
-    decrypted_file_path = './' + client +'_uncrypted.mat'
+    decrypted_file_path = client + '_uncrypted.mat'
 
     # Descriptografar o arquivo
     decrypt_file(encrypted_file_path, decrypted_file_path, key)
@@ -166,7 +166,7 @@ def MarketData():
         metadata_str = bids[c][2]
         metadata = json.loads(metadata_str)
         hash_value = metadata['Hash']
-        Price, Quantity = getIPFSdata('client' + str(c+1) , hash_value, key)
+        Price, Quantity = getIPFSdata('./.biddata/client' + str(c+1) , hash_value, key)
         Prices[c,:] = Price
         Quantities[c,:] = Quantity
         Identifiers[c] = bids[c][1]

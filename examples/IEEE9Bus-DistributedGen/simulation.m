@@ -123,7 +123,7 @@ ylabel('Voltage (pu)')
 xlabel('Time (h)')
 
 data = table(filteredData.PeriodStart, gen_power_kW(1,:)',gen_power_kW(2,:)',gen_power_kW(3,:)',Load1',Load2',Load3', 'VariableNames', {'DataHora', 'Gen-01', 'Gen-02', 'Gen-03', 'Load-01','Load-02','Load-03'});
-save('PowerData.mat','data');
+%save('PowerData.mat','data');
 
 DLEMcontract(data(:,{'Gen-01','Gen-02','Gen-03'}), filteredLoad.UC1, filteredLoad.UC2, filteredLoad.UC9)
 
