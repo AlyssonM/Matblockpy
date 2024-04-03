@@ -39,7 +39,7 @@ To run Ganache, execute the following commands in a separate terminal, specifyin
 ```shell
     ganache -p 7545 -l 500000000 -i 1515
 ```
-To deploy the example smart contract (PowerGen.sol):
+To deploy the example smart contract (DLEM.sol):
 ```shell
     truffle migrate --reset --network development
 ```
