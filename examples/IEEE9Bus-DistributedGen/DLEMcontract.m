@@ -1,7 +1,7 @@
 function DLEMcontract(Power_gen,load1,load2,load3)
 
 %pyenv("Version","D:\MATLAB\.gridenv\Scripts\python.exe"); 
-% mod = py.importlib.import_module('ipfs');
+% mod = py.importlib.import_module('degen9bus');
 % py.importlib.reload(mod);
 
 %dados de entrada
@@ -19,7 +19,7 @@ Rp = py.numpy.array([]);
 for i=1:24
     Rp = py.numpy.append(Rp,TOU(i));
 end
-py.ipfs.startLEM(Rp);
+py.degen9bus.startLEM(Rp);
 
 P1_gen = py.numpy.array([]);
 P1_price = py.numpy.array([]);
@@ -54,15 +54,15 @@ end
 % client2 = [table2array(Power_gen(:,1))', P2_price];
 
 
-py.ipfs.Register('client1','PV-1',1);
-py.ipfs.Register('client2','PV-2',1);
-py.ipfs.Register('client3','PV-3',1);
-py.ipfs.Register('client4','CU-1',0);
-py.ipfs.Register('client5','CU-2',0);
-py.ipfs.Register('client6','CU-3',0);
-py.ipfs.DLEMbid('client1', P1_gen, P1_price);
-py.ipfs.DLEMbid('client2', P2_gen, P2_price);
-py.ipfs.DLEMbid('client3', P3_gen, P3_price);
+py.degen9bus.Register('client1','PV-1',1);
+py.degen9bus.Register('client2','PV-2',1);
+py.degen9bus.Register('client3','PV-3',1);
+py.degen9bus.Register('client4','CU-1',0);
+py.degen9bus.Register('client5','CU-2',0);
+py.degen9bus.Register('client6','CU-3',0);
+py.degen9bus.DLEMbid('client1', P1_gen, P1_price);
+py.degen9bus.DLEMbid('client2', P2_gen, P2_price);
+py.degen9bus.DLEMbid('client3', P3_gen, P3_price);
 
 Consumer1_load = load1/5;
 Consumer1_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
@@ -79,15 +79,12 @@ for i=1:24
     C3_load = py.numpy.append(C3_load,(-1*Consumer3_load(i)));
     C3_price = py.numpy.append(C3_price,Consumer3_price(i));
 end
-py.ipfs.DLEMbid('client4', C1_load, C1_price);
-py.ipfs.DLEMbid('client5', C2_load, C2_price);
-py.ipfs.DLEMbid('client6', C3_load, C3_price);
+py.degen9bus.DLEMbid('client4', C1_load, C1_price);
+py.degen9bus.DLEMbid('client5', C2_load, C2_price);
+py.degen9bus.DLEMbid('client6', C3_load, C3_price);
 
 disp("Clear Local Energy Post-Market");
-py.ipfs.MarketData()
-py.ipfs.getTransactions()
-%py.ipfs.Demand_response();
-%py.ipfs.TradeEnergyMatched();
-%BidsLength = py.ipfs.getBidsLength();
-%Bids = py.ipfs.getBids();
+py.degen9bus.MarketData()
+py.degen9bus.getTransactions()
+
 end
