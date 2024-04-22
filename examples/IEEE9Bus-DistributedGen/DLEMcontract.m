@@ -35,11 +35,14 @@ C3_load = py.numpy.array([]);
 C3_price = py.numpy.array([]);
 
 Prosumer1_gen = interp1(0:0.25:23.75,table2array(Power_gen(:,1))',0:23, 'linear');
-Prosumer1_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+%Prosumer1_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+Prosumer1_price = ((TFI + TOU)/2) + 0.065;
 Prosumer2_gen = interp1(0:0.25:23.75,table2array(Power_gen(:,2))',0:23, 'linear');
-Prosumer2_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+%Prosumer2_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+Prosumer2_price = ((TFI + TOU)/2);
 Prosumer3_gen = interp1(0:0.25:23.75,table2array(Power_gen(:,3))',0:23, 'linear');
-Prosumer3_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+%Prosumer3_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.5*rand - 0.5);
+Prosumer3_price = ((TFI + TOU)/2) - 0.054;
 
 for i=1:24
     P1_gen = py.numpy.append(P1_gen,Prosumer1_gen(i));
@@ -65,11 +68,14 @@ py.degen9bus.DLEMbid('client2', P2_gen, P2_price);
 py.degen9bus.DLEMbid('client3', P3_gen, P3_price);
 
 Consumer1_load = load1/5;
-Consumer1_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+%Consumer1_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+Consumer1_price = ((TFI + TOU)/2) + 0.087;
 Consumer2_load = load2/5;
-Consumer2_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+%Consumer2_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+Consumer2_price = ((TFI + TOU)/2) + 0.047;
 Consumer3_load = load3/5;
-Consumer3_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+%Consumer3_price = ((TFI + TOU)/2) + ((TFI + TOU)/16)*(1.3*rand - 0.3);
+Consumer3_price = ((TFI + TOU)/2) - 0.058;
 
 for i=1:24
     C1_load = py.numpy.append(C1_load,(-1*Consumer1_load(i)));

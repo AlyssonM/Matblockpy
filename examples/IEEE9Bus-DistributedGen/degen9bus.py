@@ -6,6 +6,8 @@ from web3 import Web3
 from Crypto.Hash import SHA256
 from scipy.io import savemat
 from scipy.io import loadmat
+from scipy.optimize import linprog
+#from scipy.optimize import differential_evolution
 
 with open("./abis/DLEM.json") as f:
         info_json = json.load(f)
@@ -68,8 +70,8 @@ def startLEM(TOU):
     #TOUp = (np.array((TOU.astype(int)))).tolist()
     TOUp = []
     for i in range(24):
-        #TOUp.append(Web3.to_wei(TOU[i],"ether"))
-        TOUp.append(int(TOU[i]))
+        TOUp.append(Web3.to_wei(TOU[i],"ether"))
+        #TOUp.append(int(TOU[i]))
     
     DLEM.functions.setRetailPrice(TOUp).transact({"from": DSO})
     DLEM.functions.startLEM().transact({"from": DSO})
@@ -105,7 +107,7 @@ def DLEMbid(Addr, Pwr, Price):
     file_name = './.biddata/' + Addr + '.mat'
     savemat(file_name, mat_dict)
     ipfscid = bidIPFS(Addr)  
-    print(PWRp)
+    #print(PWRp)
     DLEM.functions.submitBid(PWRp, Price_p, ipfscid).transact({"from": accounts_addr.get(Addr)})
 
 def bidIPFS(client):              
@@ -120,7 +122,7 @@ def bidIPFS(client):
         files = {'file': f}
         response = requests.post(url, files=files)
     # Verificando a resposta
-    print(response.text)
+    #print(response.text)
     return response.text
 
 def getBids():
@@ -139,7 +141,6 @@ def  getIPFSdata(client, ipfscid, key):
     # Salvando o arquivo baixado, substitua 'nome_do_arquivo' pelo nome que deseja salvar
         with open(client + '.enc', 'wb') as f:
             f.write(response.content)
-        print('Arquivo baixado com sucesso.')
     else:
         print('Erro ao baixar o arquivo.')
     
@@ -152,8 +153,8 @@ def  getIPFSdata(client, ipfscid, key):
     # Descriptografar o arquivo
     decrypt_file(encrypted_file_path, decrypted_file_path, key)
     data = loadmat(decrypted_file_path)
-    print(data['Price'])
-    print(data['Quantity'])
+    #print(data['Price'])
+    #print(data['Quantity'])
     return data['Price'], data['Quantity']
 
 def MarketData():
@@ -189,59 +190,100 @@ def MarketData():
         # Ordenar lances por preço
         buy_bids[hour].sort(key=lambda x: x[0], reverse=True)  # Preços mais altos primeiro para compradores
         sell_bids[hour].sort(key=lambda x: x[0])  # Preços mais baixos primeiro para vendedores
-
+    MCP = []
+    MCQ = []
+    #MCP_opt = []
+    #MCQ_opt = []
+    #LEM_opt= []
     # Exibir resultados para verificação
-    for hour in range(24):
-        print(f"Hour {hour}:")
-        print("  Buyers:", buy_bids[hour])
-        print("  Sellers:", sell_bids[hour])
+    #for hour in range(24):
+        #print(f"Hour {hour}:")
+        #print("  Buyers:", buy_bids[hour])
+        #print("  Sellers:", sell_bids[hour])
+        # Nb = len(buy_bids[hour])
+        # Ns = len(sell_bids[hour])
+        # buy_prices = []
+        # buy_quantities = []
+        # sell_prices = []
+        # sell_quantities = []
         
+        # for price, quantity, _ in buy_bids[hour]:
+        #     buy_prices.append(price)
+        #     buy_quantities.append(abs(quantity))
+        # # Extrair os dados dos lances de venda
+        # for price, quantity, _ in sell_bids[hour]:
+        #     sell_prices.append(price)
+        #     sell_quantities.append(quantity)
+
+        #TOU = Web3.from_wei(DLEM.functions.getRetailPrice(hour).call(), "ether")
+        # Combinação dos preços para formar Ct
+        # Ct = sell_prices + [-price for price in buy_prices]
+        # MCQi, MCPi = double_auction(Ns, Nb, sell_quantities, buy_quantities, Ct)
+        # MCP_opt.append(MCPi)
+        # MCQ_opt.append(MCQi)
+        #result = maximize_social_welfare(Ns, Nb, MCQi[0:Ns], MCQi[Ns:], MCPi[0:Ns],  MCPi[Ns:], TOU)
+        # result = maximize_social_welfare(Ns, Nb, MCQi, MCPi, TOU)
+        # LEM_opt.append(result['y'])
+
+    # MCQ_opt = np.array(MCQ_opt) 
+    # MCP_opt = np.array(LEM_opt) 
+    #LEM_opt = np.array(LEM_opt) 
     # Encontrar o preço de fechamento do mercado
-    MCP , MCQ = find_market_clearing_price_hourly(buy_bids, sell_bids)
-    match_trades_hourly(buy_bids, sell_bids, MCP)
+    MCP, MCQ = find_market_clearing_price_hourly(buy_bids, sell_bids)
+
+    print('MCP/MCQ ')
     print(MCP)
-    print(MCQ)    
+    print(MCQ)
     
 def find_market_clearing_price_hourly(buy_bids_hourly, sell_bids_hourly):
     market_clearing_prices = np.zeros(24)
     market_clearing_quantities = np.zeros(24)
-
+    trades = []
     for hour in range(24):
-        buy_bids = buy_bids_hourly[hour]
-        sell_bids = sell_bids_hourly[hour]
+        buy_bids = buy_bids_hourly[hour]  # Assumindo que está ordenado: preço decrescente
+        sell_bids = sell_bids_hourly[hour]  # Assumindo que está ordenado: preço crescente
+        
+        i, j = 0, 0
+        accumulated_demand, accumulated_supply = 0, 0
+        while i < len(buy_bids) and j < len(sell_bids):
+            buy_price, buy_qty, buyer_id = buy_bids[i]
+            sell_price, sell_qty, seller_id = sell_bids[j]
+            #print('hour {} - buyer {}: price={} quantity={}'.format(hour,i,buy_price,buy_qty))
+            #print('hour {} - seller {}: price={} quantity={}'.format(hour,j,sell_price,sell_qty))
+            if buy_price >= sell_price:
+                traded_qty = min(abs(buy_qty), sell_qty)
+                accumulated_demand += traded_qty
+                accumulated_supply += traded_qty
+                if(traded_qty > 0):
+                    trade = {'buyer': buyer_id, 'seller': seller_id, 'quantity': traded_qty, 'hour': hour, 'price': 0}
+                    trades.append(trade)
+                    
 
-        # Certifique-se de que os lances estão ordenados
-        #buy_bids.sort(key=lambda x: x[0], reverse=True)  # Preços mais altos primeiro para compradores
-        #sell_bids.sort(key=lambda x: x[0])  # Preços mais baixos primeiro para vendedores
+                # Atualizando quantidades nos lances
+                buy_bids[i] = (buy_price, -(abs(buy_qty) - traded_qty), buy_bids[i][2])
+                sell_bids[j] = (sell_price, sell_qty - traded_qty, sell_bids[j][2])
 
-        accumulated_demand = 0
-        accumulated_supply = 0
-        market_clearing_price = None
-        market_clearing_quantity = None
+                # Avançar nos lances quando a quantidade se esgota
+                if abs(buy_bids[i][1]) <= 0:
+                    i += 1
+                if sell_bids[j][1] <= 0:
+                    j += 1
 
-        for sell in sell_bids:
-            accumulated_supply += sell[1]
-            accumulated_demand = 0  # Reiniciar a demanda para cada nova oferta
-            for buy in buy_bids:
-                #accumulated_demand += abs(buy[1])
-                if(abs(buy[1]) >= sell[1]):
-                    accumulated_demand += abs(sell[1])
-                else:
-                    accumulated_demand += abs(buy[1])
-
-                if accumulated_demand >= accumulated_supply and accumulated_supply > 0:
-                    market_clearing_price = sell[0]  # ou buy[0], dependendo da sua definição de MCP
-                    market_clearing_quantity = accumulated_demand
-                    break
-                else:
-                    market_clearing_price = 1
-                    #market_clearing_quantity = accumulated_supply
-
-            if market_clearing_price is not None:
+                # Definindo MCP e MCQ para a hora atual
+                market_clearing_price = sell_price  # MCP pode ser definido como preço de venda ou de compra
+                market_clearing_quantity = accumulated_demand
+            else:
                 break
 
-        market_clearing_prices[hour] = market_clearing_price if market_clearing_price is not None else 0
-        market_clearing_quantities[hour] = market_clearing_quantity if market_clearing_quantity is not None else 0
+        market_clearing_prices[hour] = market_clearing_price if market_clearing_quantity > 0 else 0
+        market_clearing_quantities[hour] = market_clearing_quantity if market_clearing_quantity > 0 else 0
+
+    
+    for trade in trades:
+        trade['price'] = market_clearing_prices[trade['hour']]
+        #print(trade)
+        register_trade(trade)
+        
     return market_clearing_prices, market_clearing_quantities
 
 def match_trades_hourly(buy_bids_hourly, sell_bids_hourly, market_clearing_prices):
@@ -267,8 +309,8 @@ def match_trades_hourly(buy_bids_hourly, sell_bids_hourly, market_clearing_price
                     continue
 
                 trade_quantity = min(abs(buy_quantity), sell_quantity)
-                trade = {'buyer': buyer_id, 'seller': seller_id, 'quantity': trade_quantity, 'price': mcp}
-                trades.append({'buyer': buyer_id, 'seller': seller_id, 'quantity': trade_quantity, 'price': mcp})
+                trade = {'buyer': buyer_id, 'seller': seller_id, 'quantity': trade_quantity, 'hour': hour, 'price': mcp}
+                trades.append(trade)
                 register_trade(trade,hour,buyer_id,seller_id)
                 buy_quantity -= trade_quantity
                 sell_quantity -= trade_quantity
@@ -283,14 +325,82 @@ def match_trades_hourly(buy_bids_hourly, sell_bids_hourly, market_clearing_price
     print(hourly_trades)
     return hourly_trades
 
-def register_trade(trade, hour, buyer_address, seller_address):
+def register_trade(trade):
     DLEM.functions.addTransaction(
-        buyer_address,
-        seller_address,
-        hour,
+        trade['buyer'],
+        trade['seller'],
+        trade['hour'],
         Web3.to_wei(trade['quantity'],"ether"),
         Web3.to_wei(trade['price'],"ether")
         ).transact({"from": DSO})
     
 def getTransactions():
     return DLEM.functions.getTransactions().call()
+
+def double_auction(Ns, Nb, Ps, Pb, Ct):
+    N = Ns + Nb
+    P = np.concatenate([Ps, Pb])  # Combina os preços de vendedores e compradores
+
+    # Definindo os coeficientes para a função objetivo
+    C = np.array(Ct)  # Usamos negativo porque linprog faz minimização
+
+    # As restrições de desigualdade (x >= 0 e x <= P)
+    # linprog usa a forma Ax <= b para restrições, então para x >= 0, não precisamos definir (já é implícito)
+    A_ub = np.vstack([np.eye(N), -np.eye(N)])  # x <= Ps/Pb e x >= 0
+    b_ub = np.concatenate([Ps, Pb, np.zeros(N)])  # Limites superiores e x >= 0
+    
+    
+    # Restrição de igualdade para garantir que a oferta e demanda sejam iguais
+    A_eq = np.ones((1, N))
+    A_eq[0, :Ns] = -1  # Coeficientes para vendedores
+    A_eq[0, Ns:] = 1  # Coeficientes para compradores
+    b_eq = [0]
+
+    # Resolver o problema de otimização linear
+    result = linprog(C, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, method='highs')
+
+    MCQ = result.x  # Quantidades ótimas
+    lambda_ = C  # Valor ótimo da função objetivo (negativo devido à inversão inicial)
+
+    return MCQ, lambda_
+
+def maximize_social_welfare(Ns, Nb, P, C, TOU):
+    # Definindo os coeficientes da função objetivo (maximizar -Ct * y)
+    #Ct = np.concatenate(([0], -np.array(P[:Ns]), -np.array(P[Ns:])))
+    Ct = np.concatenate(([1], -np.array(P)))
+    # Criando a matriz A e o vetor b das restrições de desigualdade
+    A = np.zeros((Ns + Nb + 6, Ns + Nb + 1))
+    b = np.zeros(Ns + Nb + 6)
+
+    # Preenchendo as restrições para vendedores
+    for j in range(Ns):
+        A[j, 0] = 1  # Coeficiente para lambda_m
+        A[j, j + 1] = -1  # Coeficiente para nu_Sj
+        #b[j] = -Cs[j]  # Limite superior P_Sj
+        b[j] = C[j]
+
+    # Preenchendo as restrições para compradores
+    for i in range(Nb):
+        A[Ns + i, 0] = -1  # Coeficiente negativo para lambda_m
+        A[Ns + i, Ns + i + 1] = -1  # Coeficiente para nu_Bi
+        #b[Ns + i] = -Cb[i]  # Limite superior negativo -P_Bi
+        b[Ns + i] = C[Ns+i]
+    
+    for j in range(Ns+Nb):
+        A[Ns+Nb+j, j + 1] = -1
+        b[Ns+Nb+j] = 0
+    
+    #print(A)
+    #print(b)    
+    #bounds = [(0, TOU) for _ in range(Ns + Nb + 1)]
+    bounds = [(None, None)] + [(0, TOU)] * (Ns + Nb) 
+    # Chamando o solucionador de otimização linear
+    res = linprog(Ct, A_ub=A, b_ub=b, bounds=bounds, method='highs')
+
+    # Verificando o sucesso da otimização e retornando o resultado
+    if res.success:
+        return {'y': res.x, 'social_welfare': -res.fun}
+    else:
+        raise ValueError("A otimização falhou: " + res.message)
+
+

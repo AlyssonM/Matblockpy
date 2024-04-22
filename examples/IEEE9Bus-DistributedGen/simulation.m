@@ -7,8 +7,8 @@ load('UCloads');
 
 %% Meteorological data
 IfesSolcastPT15M.PeriodStart = datetime(IfesSolcastPT15M.PeriodStart, 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
-startDate = datetime('2022-08-12 00:00:00', 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
-endDate = datetime('2022-08-12 23:45:00', 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
+startDate = datetime('2022-08-10 00:00:00', 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
+endDate = datetime('2022-08-10 23:45:00', 'InputFormat', 'yyyy-MM-dd HH:mm:ss');
 
 filteredData = IfesSolcastPT15M(IfesSolcastPT15M.PeriodStart >= startDate & IfesSolcastPT15M.PeriodStart <= endDate, :);
 
